@@ -23,18 +23,29 @@ export default class Calculator extends Component {
   clearMemory() {
     this.setState({ ...initialState })
   }
-  setOperation(operation) {
-    if (this.state.current === 0){
+  setOperation(operation) {    
+    if (this.state.current === 0) {
       this.setState({ operation, clearDisplay: true, current: 1});
     } else {
       const equals = operation === '=';
-      const currentOperation = this.setState.operation;
-      const values = [...this.state.values];      
-      try {
-        values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`);
-      } catch (e) {
-        values[0] = this.state.values[0];
-      }      
+      const currentOperation = this.state.operation;      
+      const values = [...this.state.values];
+      switch (currentOperation) {
+        case '/':
+          values[0] = values[0] / values[1];
+          break;
+        case '*':
+          values[0] = values[0] * values[1];
+          break;
+        case '+':
+          console.log('+')
+          values[0] = values[0] + values[1];
+          break;
+        case '-':
+          values[0] = values[0] - values[1];
+          break;
+        default:
+      }
       values[1] = 0;
       this.setState({
         displayValue: values[0],
